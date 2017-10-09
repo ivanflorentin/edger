@@ -1,4 +1,5 @@
 # Edger
+
   A collection of rudimentary tools to help development on ApiGee Edge
 
 # Usage
@@ -21,4 +22,4 @@
  ```
  $ node watch.js 
  ```
- to automagically upload files whn they are changed in the file system.
+ to automagically upload files when they are changed in the file system.
