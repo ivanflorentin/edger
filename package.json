@@ -1,0 +1,18 @@
+{
+  "name": "app",
+  "version": "1.0.0",
+  "description": "Tigo ID Main App",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Ivan Florentin <ivanflorentin@gmail.com>",
+  "license": "ISC",
+  "dependencies": {
+    "base-64": "^0.1.0",
+    "chokidar": "^1.7.0",
+    "request": "^2.83.0",
+    "request-promise": "^4.2.2",
+    "utf8": "^2.1.2"
+  }
+}
