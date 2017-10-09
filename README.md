@@ -23,3 +23,6 @@
  $ node watch.js 
  ```
  to automagically upload files when they are changed in the file system.
+ 
+ 
+ Tested with NodeJs 8.6.0
