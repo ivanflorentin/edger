@@ -1,53 +1,45 @@
 // docs:
 // 404 Not Found
 
-var request = require("request");
-var fs = require("fs")
+const request = require("request");
+const fs      = require("fs")
+const config  = require("./config")
 
-require('dotenv').config();
+const API_NAME    = config.APINAME
+const API_ORG     = config.APIORG
+const API_REV     = config.APIREV
+const APIGEE_USER = config.APIGEE_USER
+const APIGEE_PASS = config.APIGEE_PASS
 
-const apiName    = process.env.APINAME
-const apiOrg     = process.env.APIORG
-const apiRev     = process.env.APIREV
-const apigeeUser = process.env.APIGEE_USER
-const apigeePass = process.env.APIGEE_PASS
-const url        = `https://api.enterprise.apigee.com/v1/organizations/${apiOrg}/apis/${apiName}/revisions/${apiRev}/policies`
+const url = `https://api.enterprise.apigee.com/v1/organizations/${API_ORG}/apis/${API_NAME}/revisions/${API_REV}/policies`
 
-module.exports = (function( dir, file ) {
+module.exports = (( path, file ) => {
 
-    console.log("dir", dir)
-    console.log("file", `${file}.xml`)
-
-    // apigee expect a lower case file name
+    // apigee expect a lower case file name in policies
     var fileName = file.toLowerCase()
 
-    var path = dir || __dirname
     fs.readFile(`${path}/${file}.xml`, function( err, data ) { 
         
         var body = data.toString()
         console.log("xml string to send", body)
         
         var options = { 
-            method: 'PUT',
-            url: `${url}/${fileName}`,
-            auth : {
-                user: apigeeUser,
-                password: apigeePass
-            },
-            headers: { 
-                'content-type': 'application/xml'
-            },
-            body: body
+            method  : 'PUT',
+            url     : `${url}/${fileName}`,
+            auth    : { user: APIGEE_USER, password: APIGEE_PASS },
+            headers : { 'content-type': 'application/xml' },
+            body    : body
         }
         
         request(options, function (error, response, body) {
-            if (error) throw new Error(error);
+            if (error) throw new Error(error)
             
-            console.log("apigee response body", body);
+            console.log("APIGEE RESPONSE BODY:\n", body);
             
-            if (response.statusCode === 200) {
+            if (response.statusCode === 200)
                 console.log("Policy updated on Apigee")
-            }
-        });
+            else
+                console.log("status code", response.statusCode)
+        })
     })
 })
