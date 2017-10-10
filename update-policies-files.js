@@ -39,8 +39,12 @@ module.exports = (function( dir, file ) {
         
         request(options, function (error, response, body) {
             if (error) throw new Error(error);
-      
-            console.log(body);
+            
+            console.log("apigee response body", body);
+            
+            if (response.statusCode === 200) {
+                console.log("Policy Updated on Apigee")
+            }
         });
     })
 })
