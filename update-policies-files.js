@@ -32,9 +32,9 @@ module.exports = (function( dir, file ) {
                 password: apigeePass
             },
             headers: { 
-                'content-type': 'application/xml',
-                body: body
-            }
+                'content-type': 'application/xml'
+            },
+            body: body
         }
         
         request(options, function (error, response, body) {
@@ -43,7 +43,7 @@ module.exports = (function( dir, file ) {
             console.log("apigee response body", body);
             
             if (response.statusCode === 200) {
-                console.log("Policy Updated on Apigee")
+                console.log("Policy updated on Apigee")
             }
         });
     })

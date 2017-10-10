@@ -15,6 +15,8 @@ const url        = `https://api.enterprise.apigee.com/v1/o/${apiOrg}/apis/${apiN
 
 module.exports = (function( path , file ) {
 
+    var fileToSend = fs.createReadStream(`${path}/${file}`)
+
     const options = {
         url: `${url}/${file}`,
         method: 'PUT',
@@ -26,18 +28,19 @@ module.exports = (function( path , file ) {
             password: apigeePass
         },
         formData: {
-            "": fs.createReadStream(`${path}/${file}`)
+            "": fileToSend
         },
         resolveWithFullResponse: true
     };
 
     request(options)
-        .then(function (res) {
-            // Access response.statusCode, response.body etc.
-            console.log("statusCode", res.statusCode)
+        .then(function ( res ) {
             console.log("body", res.body)
+            console.log("statusCode", res.statusCode)
+            if (res.statusCode === 200)
+                console.log("Resource updated on Apigee")
         })
-        .catch(function (err) {
+        .catch(function ( err ) {
             console.log("status code error:", err.statusCode)
         });
 
