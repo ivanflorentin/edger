@@ -18,6 +18,9 @@ module.exports = (function( dir, file ) {
     console.log("dir", dir)
     console.log("file", `${file}.xml`)
 
+    // apigee expect a lower case file name
+    var fileName = file.toLowerCase()
+
     var path = dir || __dirname
     fs.readFile(`${path}/${file}.xml`, function( err, data ) { 
         
@@ -26,7 +29,7 @@ module.exports = (function( dir, file ) {
         
         var options = { 
             method: 'PUT',
-            url: `${url}/${file}`,
+            url: `${url}/${fileName}`,
             auth : {
                 user: apigeeUser,
                 password: apigeePass
