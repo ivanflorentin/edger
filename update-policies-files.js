@@ -15,17 +15,23 @@ const url = `https://api.enterprise.apigee.com/v1/organizations/${API_ORG}/apis/
 
 module.exports = (( path, file ) => {
 
-    // apigee expect a lower case file name in policies
-    var fileName = file.toLowerCase()
+    console.log("path", path)
+    console.log("file", file)
+
+    // policies names have to follow apigee standard, CamelCase
 
     fs.readFile(`${path}/${file}.xml`, function( err, data ) { 
         
-        var body = data.toString()
-        console.log("xml string to send", body)
+        try {
+            var body = data.toString()
+            console.log("xml string to send", body)
+        } catch(e) {
+            console.error("error from readFile:", e)
+        }
         
         var options = { 
             method  : 'PUT',
-            url     : `${url}/${fileName}`,
+            url     : `${url}/${file}`,
             auth    : { user: APIGEE_USER, password: APIGEE_PASS },
             headers : { 'content-type': 'application/xml' },
             body    : body

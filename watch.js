@@ -3,7 +3,6 @@ const path              = require('path')
 const updateResources   = require('./update-resource-files')
 const updatePolicies    = require('./update-policies-files')
 const args              = require('./arguments')
-//const { spawn } = require('child_process')
 
 const log = console.log.bind(console)
 
