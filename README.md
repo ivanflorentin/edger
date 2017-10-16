@@ -19,7 +19,6 @@
     -d, --dir <directory>  Directory to Watch     (required)
     -e, --event <event>    Type of Event to Watch (required)
     -h, --help             output usage information
-
 ```
   
   Create a folder with the name of your proxy
@@ -33,10 +32,20 @@
   Use updateJsResource.sh to update a single js file 
   
  and then 
+ 
  ```
- $ node watch.js 
+ $ node watch.js <commands>
  ```
+ 
  to automagically upload files when they are changed in the file system.
  
+ # TODO
+
+- Watch type of events based on chokidar
+- Watch event treatment
+- Invalid Apigee credentials treatment
+- Error treatments from Request (authentication errors, invalid file type) and from response (statusCode, cb error, etc)
+- More descriptive logs event
+- Consistency in filenames
  
  Tested with NodeJs 8.6.0 and 7.10.0
