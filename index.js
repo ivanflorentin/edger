@@ -1,10 +1,16 @@
+#!/Mount/SDA4/GoboUsers/ivan/Programs/Node/8.7.0/bin/node
+
 const chokidar = require('chokidar')
 const path = require('path')
-const updateResources = require('./update-resource-files')
-const updatePolicies = require('./update-policies-files')
-const args = require('./arguments')
+const updateResources = require('./lib/update-resource-files')
+const updatePolicies = require('./lib/update-policies-files')
+const args = require('./lib/arguments')
 
 const log = console.log.bind(console)
+const configurer = require('./lib/createConfig.js')
+
+const config = configurer(args)
+
 
 // chokidar options
 var options = {
@@ -12,26 +18,21 @@ var options = {
   ignored: /(^|[\/\\])\../
 }
 
-log('\nstart watching files...\n')
-log('==================================================\n')
+log(`Starting Watcher for \nProxy: ${config.api_name} \nRevision: ${config.api_revision} \nOrganization: ${config.api_org}\nUser: ${config.apigee_username}` )
 
 chokidar.watch(args.dir, options)
   .on(args.event, (wPath, event) => {
-    log(wPath, '-->', event)
     var dirname = path.dirname(wPath)
 
     if (wPath.indexOf('/jsc') > 0) {
-      log('Updated js file: ', wPath)
-      //log('path', dirname)
       var jsFile = path.basename(wPath)
-      updateResources(dirname, jsFile)
+      updateResources(config, dirname, jsFile)
     }
 
     if (wPath.indexOf('/policies') > 0) {
       log('Updating policy: ', wPath)
-//      log('path', dirname)
       var xmlFile = path.basename(wPath, '.xml')
       log('file name', xmlFile)
-      updatePolicies(dirname, xmlFile)
+      updatePolicies(config, dirname, xmlFile)
     }
   })

@@ -1,18 +1,23 @@
 {
-  "name": "app",
+  "name": "apigee-edger",
   "version": "1.0.0",
-  "description": "Edger",
-  "main": "watch.js",
+  "description": "Ease apigee edger development with automated udates",
+  "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Ivan Florentin <ivanflorentin@gmail.com>",
   "license": "ISC",
+  "repository": "https://github.com/ivanflorentin/edger",
   "dependencies": {
     "chokidar": "^1.7.0",
     "commander": "^2.11.0",
     "dotenv": "^4.0.0",
     "request": "^2.83.0",
-    "request-promise": "^4.2.2"
+    "request-promise": "^4.2.2",
+    "xml-parser": "^1.2.1"
+  },
+  "bin": {
+    "edger": "./index.js"
   }
 }
