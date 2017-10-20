@@ -2,45 +2,46 @@
 
   A collection of rudimentary tools to help development on ApiGee Edge
 
+# For developers
+Clone this repository an then link it.
+
+```
+
+$npm link
+```
+
+
 # Install
 
 ```
-  npm install
+  npm install -g
 ```
 
 # Usage
 
+Edger now implemnts a commad available globally, so it can manage different projects each with its own configuration
+  
+Create a folder with the name of your proxy, download and decompress the bundle of your api proxy inside that folder.
+Edger will try detect you api proxy configuration and merge with variables set in your environment.
+This variables are:
+APIGEE_USERNAME
+APIGEE_PASSWORD
+API_NAME
+API_ORGANIZATION
+API_REVISION
+API_ENVIRONMENT
+
+If present, they will replace the defaults in your api proxy configuration. 
+
+to start watching for changes and automatically update jour api proxy, just:
+
 ```
-  Usage: watch [options]
-
-
-  Options:
-
-    -d, --dir <directory>  Directory to Watch     (required)
-    -e, --event <event>    Type of Event to Watch (required)
-    -h, --help             output usage information
+$ edger
 ```
-  
-  Create a folder with the name of your proxy
-  
-  Copy the files of this project to this folder
-  
-  Download and decompress the bundle of your api proxy
-  
-  Configure your options in apigee_base_config.sh
-  
-  Use updateJsResource.sh to update a single js file 
-  
- and then 
  
- ```
- $ node watch.js <commands>
- ```
- 
- to automagically upload files when they are changed in the file system.
- 
- # TODO
-
+# TODO
+- Create a local configuration for the project
+- Create project by downloading a bundle 
 - Watch type of events based on chokidar
 - Watch event treatment
 - Invalid Apigee credentials treatment
@@ -48,4 +49,4 @@
 - More descriptive logs event
 - Consistency in filenames
  
- Tested with NodeJs 8.6.0 and 7.10.0
+ Tested with NodeJs 8.6.0, 8.7.0 and 7.10.0
