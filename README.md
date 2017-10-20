@@ -23,12 +23,19 @@ Edger now implemnts a commad available globally, so it can manage different proj
   
 Create a folder with the name of your proxy, download and decompress the bundle of your api proxy inside that folder.
 Edger will try detect you api proxy configuration and merge with variables set in your environment.
+
 This variables are:
+
 APIGEE_USERNAME
+
 APIGEE_PASSWORD
+
 API_NAME
+
 API_ORGANIZATION
+
 API_REVISION
+
 API_ENVIRONMENT
 
 If present, they will replace the defaults in your api proxy configuration. 
