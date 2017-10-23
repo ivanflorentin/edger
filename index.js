@@ -18,7 +18,7 @@ var options = {
   ignored: /(^|[\/\\])\../
 }
 
-log(`Starting Watcher for \nProxy: ${config.api_name} \nRevision: ${config.api_revision} \nOrganization: ${config.api_org}\nUser: ${config.apigee_username}` )
+log(`Starting Watcher for \nProxy: ${config.api_name} \nRevision: ${config.api_revision} \nOrganization: ${config.api_organization}\nUser: ${config.apigee_username}` )
 
 chokidar.watch(args.dir, options)
   .on(args.event, (wPath, event) => {
