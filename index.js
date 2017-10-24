@@ -1,4 +1,4 @@
-#!/Mount/SDA4/GoboUsers/ivan/Programs/Node/8.7.0/bin/node
+#!/usr/bin/node
 
 const chokidar = require('chokidar')
 const path = require('path')
