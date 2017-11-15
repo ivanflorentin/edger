@@ -7,10 +7,9 @@ const updatePolicies = require('./lib/update-policies-files')
 const args = require('./lib/arguments')
 
 const log = console.log.bind(console)
-const configurer = require('./lib/createConfig.js')
+const configurer = require('./lib/create-config.js')
 
 const config = configurer(args)
-
 
 // chokidar options
 var options = {
