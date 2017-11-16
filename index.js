@@ -38,7 +38,7 @@ chokidar.watch(args.dir, options)
         }
 
         if (wPath.indexOf('/proxies') > 0) {
-            log('Exporting bundle: ', wPath)
+            log('file updated: ', wPath)
             var xmlFile = path.basename(wPath, '.xml')
             var currentDir = path.dirname(wPath)
             log('file name', xmlFile)
