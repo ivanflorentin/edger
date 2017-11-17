@@ -13,7 +13,7 @@ const configurer = require('./lib/create-config.js')
 const config = configurer(args)
 
 // chokidar options
-var options = {
+const options = {
     ignoreInitial: true,
     ignored: /(^|[\/\\])\../
 }
@@ -36,9 +36,9 @@ chokidar.watch(args.dir, options)
             log('file name', xmlFile)
             updatePolicies(config, dirname, xmlFile)
         }
-
-        if (wPath.indexOf('/proxies') > 0) {
-            log('file updated: ', wPath)
+        // wPath.indexOf('/targets') > 0
+        if (wPath.indexOf('/proxies') > 0 || wPath.indexOf(`/${config.api_name}.xml`) > 0) {
+            log('main proxy file updated: ', wPath)
             var xmlFile = path.basename(wPath, '.xml')
             var currentDir = path.dirname(wPath)
             log('file name', xmlFile)
@@ -46,4 +46,5 @@ chokidar.watch(args.dir, options)
             log('dir to export', dirToExport)
             updateRevision(config, dirToExport)
         }
+
     })
