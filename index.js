@@ -3,6 +3,7 @@
 const chokidar = require('chokidar')
 const path = require('path')
 const colors = require('colors/safe')
+const readline = require('readline')
 const updateResources = require('./lib/update-resource-files')
 const updatePolicies = require('./lib/update-policies-files')
 const updateRevision = require('./lib/export-bundle')
@@ -12,6 +13,11 @@ const log = console.log.bind(console)
 const configurer = require('./lib/create-config.js')
 
 const config = configurer(args)
+
+const rl = readline.createInterface({
+    input: process.stdin,
+    output: process.stdout
+})
 
 colors.setTheme({
     verbose : 'cyan',
@@ -49,18 +55,26 @@ chokidar.watch(args.dir, options)
             log(colors.verbose(wPath))
             updatePolicies(config, dirname, xmlFile)
         }
-        // wPath.indexOf('/targets') > 0
+
         if (wPath.indexOf('/proxies') > 0 || wPath.indexOf(`/${config.api_name}.xml`) > 0) {
-            //log(colors.warn('main proxy file updated: %s'), wPath)
-            var xmlFile = path.basename(wPath, '.xml')
-            var currentDir = path.dirname(wPath)
-            //log(colors.warn('file name: %s'), xmlFile)
-            var dirToExport = currentDir.replace('/proxies', "")
-            log(colors.warn("\n==================================================================================="))
-            log(colors.warn("Directory to export"))
-            log(colors.warn("===================================================================================\n"))
-            log(colors.verbose(dirToExport))
-            updateRevision(config, dirToExport)
+
+            rl.question('Are you sure you want to import the bundle to Apigee? (Y/n): ', answer => {
+                if (/y(?:es)?|1/i.test(answer)) {
+                        //log(colors.warn('main proxy file updated: %s'), wPath)
+                        var xmlFile = path.basename(wPath, '.xml')
+                        var currentDir = path.dirname(wPath)
+                        //log(colors.warn('file name: %s'), xmlFile)
+                        var dirToExport = currentDir.replace('/proxies', "")
+                        log(colors.warn("\n==================================================================================="))
+                        log(colors.warn("Directory to export"))
+                        log(colors.warn("===================================================================================\n"))
+                        log(colors.verbose(dirToExport))
+                        updateRevision(config, dirToExport)
+                } else {
+                    log(colors.error("\nAPI Proxy not updated"))
+                }
+
+            })
         }
 
     })
