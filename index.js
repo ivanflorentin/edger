@@ -57,11 +57,10 @@ chokidar.watch(args.dir, options)
         }
 
         if (wPath.indexOf('/proxies') > 0 || wPath.indexOf(`/${config.api_name}.xml`) > 0) {
-
-            rl.question('Are you sure you want to import the bundle to Apigee? (Y/n): ', answer => {
+            rl.question('Are you sure you want to upload the bundle to Apigee? (Y/n): ', answer => {
+                
                 if (/y(?:es)?|1/i.test(answer)) {
                         //log(colors.warn('main proxy file updated: %s'), wPath)
-                        var xmlFile = path.basename(wPath, '.xml')
                         var currentDir = path.dirname(wPath)
                         //log(colors.warn('file name: %s'), xmlFile)
                         var dirToExport = currentDir.replace('/proxies', "")
@@ -76,5 +75,4 @@ chokidar.watch(args.dir, options)
 
             })
         }
-
     })
