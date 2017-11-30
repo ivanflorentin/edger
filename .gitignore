@@ -1,0 +1,5 @@
+.env
+node_modules
+nodejs-scripts
+old_files
+package-lock.json
