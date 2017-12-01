@@ -35,12 +35,12 @@ const options = {
 
 downloadBundle.observable.on('ready', function () {
     log(colors.green("==================================================================================="))
-    log(colors.green(`Starting Watcher for \nProxy: ${config.api_name} \nRevision: ${config.api_revision} \nOrganization: ${config.api_organization}\nUser: ${config.apigee_username}`))
+    log(colors.green("Starting Watcher for"))
     log(colors.green("===================================================================================\n"))
-    console.log(`Starting directory: ${process.cwd()}`);
+    log(`Proxy: ${config.api_name} \nRevision: ${config.api_revision} \nOrganization: ${config.api_organization}\nUser: ${config.apigee_username}\n`)
     try {
         process.chdir(`${config.api_name}`);
-        console.log(`New directory: ${process.cwd()}`);
+        log(colors.verbose(`Moving to directory: ${process.cwd()}`))
         startWatcher()
     } catch (err) {
         console.error(`chdir: ${err}`);
@@ -101,12 +101,14 @@ const startWatcher = () => {
 
 if (args.downloadBundle) {
     log(colors.cyan("==================================================================================="))
-    log(colors.cyan(`Starting Download for \nProxy: ${config.api_name} \nRevision: ${config.api_revision} \nOrganization: ${config.api_organization}\nUser: ${config.apigee_username}`))
+    log(colors.cyan("Starting Download for"))
     log(colors.cyan("===================================================================================\n"))
+    log(`Proxy: ${config.api_name} \nRevision: ${config.api_revision} \nOrganization: ${config.api_organization}\nUser: ${config.apigee_username}\n`)
     downloadBundle.makeRequest(config)
 } else {
     log(colors.green("==================================================================================="))
-    log(colors.green(`Starting Watcher for \nProxy: ${config.api_name} \nRevision: ${config.api_revision} \nOrganization: ${config.api_organization}\nUser: ${config.apigee_username}`))
+    log(colors.green("Starting Watcher for"))
     log(colors.green("===================================================================================\n"))
+    log(`Proxy: ${config.api_name} \nRevision: ${config.api_revision} \nOrganization: ${config.api_organization}\nUser: ${config.apigee_username}\n`)
     startWatcher()
 }
