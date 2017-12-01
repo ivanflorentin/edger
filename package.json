@@ -17,6 +17,7 @@
     "dotenv": "^4.0.0",
     "request": "^2.83.0",
     "request-promise": "^4.2.2",
+    "unzip": "^0.1.11",
     "xml-parser": "^1.2.1"
   },
   "bin": {
