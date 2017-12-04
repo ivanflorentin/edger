@@ -4,7 +4,7 @@ A file watcher/sync to work locally on the Apigee Edge platform
 
 ## Description
 
-Edger is a simple file watcher that automatic updates the changes on the Apigee Edge platform when you're working with API Proxies.
+Edger is a simple file watcher that automatically syncs local changes to the Apigee Edge platform when you're working with API Proxies.
 
 ## For developers
 Clone this repository an then link it
@@ -85,7 +85,7 @@ edger --download-bundle
 ```
 
 ## Apigee API Edge Managment scopes
-When you make changes on the the Endpoint Proxy file/files `default.xml` on` /proxies` _Apigee Edge Management API_ does not support a granular update for this file, it have to update the complete package, this operation requires some time and task, mainly related to the Apigee Edge Management API. These tasks are compress the folder, prepare, perform the verification against Apigee API and then update the Proxy remotely, it takes some time according to the size of the Project, the same behavior is applied to the file/files of Target Endpoint.
+When you make changes to the Endpoint Main Proxy file/files _for example regularly call_ `default.xml` on the `/proxies` folder _Apigee Edge Management API_ does not support a granular update for this file, it have to update the complete package, this operation requires some time and task, mainly related to the Apigee Edge Management API. These tasks are compress the folder, prepare, perform the verification against Apigee API and then update the Proxy remotely, it takes some time according to the size of the Project, the same behavior is applied to the file/files of Target Endpoint.
  
 ## ToDo:
 - Support for automatic updates on Target Endpoint files
