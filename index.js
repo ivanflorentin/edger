@@ -8,12 +8,15 @@ const updateResources = require('./lib/update-resource-files')
 const updatePolicies = require('./lib/update-policies-files')
 const uploadBundle = require('./lib/upload-bundle')
 const downloadBundle = require('./lib/download-bundle')
+const obtainLatestRevision = require('./lib/obtain-latest-revision')
 const args = require('./lib/arguments')
 
 const log = console.log.bind(console)
 const configurer = require('./lib/create-config.js')
 
 const config = configurer(args)
+
+
 
 const rl = readline.createInterface({
     input: process.stdin,
@@ -100,11 +103,24 @@ const startWatcher = () => {
 }
 
 if (args.downloadBundle) {
-    log(colors.cyan("==================================================================================="))
-    log(colors.cyan("Starting Download for"))
-    log(colors.cyan("===================================================================================\n"))
-    log(`Proxy: ${config.api_name} \nRevision: ${config.api_revision} \nOrganization: ${config.api_organization}\nUser: ${config.apigee_username}\n`)
-    downloadBundle.makeRequest(config)
+    if (!config.api_revision) {
+        console.log("Getting latest API Proxy revision...")
+        obtainLatestRevision(config, function (error, rev) {
+            if (error) throw new Error(error);
+            config.api_revision = rev
+            log(colors.cyan("==================================================================================="))
+            log(colors.cyan("Starting Download for"))
+            log(colors.cyan("===================================================================================\n"))
+            log(`Proxy: ${config.api_name} \nRevision: ${config.api_revision} \nOrganization: ${config.api_organization}\nUser: ${config.apigee_username}\n`)
+            downloadBundle.makeRequest(config)
+        })
+    } else {
+        log(colors.cyan("==================================================================================="))
+        log(colors.cyan("Starting Download for"))
+        log(colors.cyan("===================================================================================\n"))
+        log(`Proxy: ${config.api_name} \nRevision: ${config.api_revision} \nOrganization: ${config.api_organization}\nUser: ${config.apigee_username}\n`)
+        downloadBundle.makeRequest(config)
+    }
 } else {
     log(colors.green("==================================================================================="))
     log(colors.green("Starting Watcher for"))
